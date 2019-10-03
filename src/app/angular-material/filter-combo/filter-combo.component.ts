@@ -10,7 +10,7 @@ import { map, startWith } from "rxjs/operators";
 })
 export class FilterComboComponent implements OnInit {
   myControl = new FormControl();
-  options: Institucion[] = [
+  listaInstituciones: Institucion[] = [
     { id: "1", nombre: "One" },
     { id: "2", nombre: "Two" },
     { id: "3", nombre: "Three" }
@@ -22,7 +22,7 @@ export class FilterComboComponent implements OnInit {
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith(""),
       map(value => (typeof value === "string" ? value : value.name)),
-      map(name => (name ? this._filter(name) : this.options.slice()))
+      map(name => (name ? this._filter(name) : this.listaInstituciones.slice()))
     );
   }
 
@@ -33,7 +33,7 @@ export class FilterComboComponent implements OnInit {
   private _filter(name: string): Institucion[] {
     const filterValue = name.toLowerCase();
 
-    return this.options.filter(
+    return this.listaInstituciones.filter(
       option => option.nombre.toLowerCase().indexOf(filterValue) === 0
     );
   }
